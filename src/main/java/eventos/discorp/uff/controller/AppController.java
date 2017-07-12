@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import eventos.discorp.uff.model.Employee;
-import eventos.discorp.uff.model.Recurso;
+import eventos.discorp.uff.model.Evento;
 import eventos.discorp.uff.service.EmployeeService;
 import eventos.discorp.uff.service.IService;
 
@@ -29,7 +29,7 @@ public class AppController {
         
         
         @Autowired
-	IService<Recurso> recursoService;
+	IService<Evento> eventoService;
         
 	
 	@Autowired
@@ -47,7 +47,13 @@ public class AppController {
                 
                 //List<Recurso> recursos = recursoService.buscarTodos();
                 
-		//model.addAttribute("employees", employees);
+                
+                List<Evento> eventos = eventoService.buscarTodos();
+                
+                //model.addAttribute("employees", employees);
+                model.addAttribute("eventos", eventos);
+
+                
 		return "principal";
 	}
         

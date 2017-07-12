@@ -1111,6 +1111,15 @@ footer .social-footer li:hover a {
 }
 
 
+.smin { background-image: url('../img/smin.jpg') !important; }
+.smin:hover { background-image: url('../img/smin-hover.jpg') !important; }
+
+.plet { background-image: url('../img/plet.jpg') !important; }
+.plet:hover { background-image: url('../img/plet-hover.jpg') !important; }
+
+.wors { background-image: url('../img/wors.jpg') !important; }
+.wors:hover { background-image: url('../img/wors-hover.jpg') !important; }
+
 
 
 

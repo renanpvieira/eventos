@@ -38,6 +38,18 @@
 			</tr>
 		</c:forEach>
 	</table>
+        
+        <table>
+		<tr>
+			<td>NAME</td>
+		</tr>
+		<c:forEach items="${eventos}" var="evento">
+			<tr>
+			<td>${evento.descricao}</td>
+			
+			</tr>
+		</c:forEach>
+	</table>
 	<br/>
 	<a href="<c:url value='/new' />">Add New Employee</a>
 </body>

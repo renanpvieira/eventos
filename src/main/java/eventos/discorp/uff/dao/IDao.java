@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface IDao<T> {
 
-        Recurso buscarById(int id);
+        T buscarById(int id);
         List<T> buscarTodos();
         
 	void salvar(T classe);

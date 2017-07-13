@@ -19,6 +19,8 @@ import eventos.discorp.uff.model.Employee;
 import eventos.discorp.uff.model.Evento;
 import eventos.discorp.uff.service.EmployeeService;
 import eventos.discorp.uff.service.IService;
+import java.util.ArrayList;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/")
@@ -40,6 +42,22 @@ public class AppController {
 	 */
         
         
+        @RequestMapping(value = "/ajaxtest", method = RequestMethod.GET)
+        public @ResponseBody
+        String getTime() {
+            
+            return "ss";
+        }
+                
+        @RequestMapping(value = { "/admin" }, method = RequestMethod.GET)
+	public String admin(ModelMap model) {   return "redirect:/admin/painel"; }
+        
+        @RequestMapping(value = { "/evento" }, method = RequestMethod.GET)
+	public String evento(ModelMap model) {   return "redirect:/evento/novo"; }
+        
+         
+        
+        
         @RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String index(ModelMap model) {
 
@@ -47,11 +65,18 @@ public class AppController {
                 
                 //List<Recurso> recursos = recursoService.buscarTodos();
                 
+               
                 
                 List<Evento> eventos = eventoService.buscarTodos();
                 
+                List<Evento> eventos_proximo = new ArrayList<Evento>();
+                eventos_proximo.add(eventos.get(0));
+                eventos_proximo.add(eventos.get(1));
+                              
+                
                 //model.addAttribute("employees", employees);
                 model.addAttribute("eventos", eventos);
+                model.addAttribute("proximoeventos", eventos_proximo);
 
                 
 		return "principal";
@@ -69,6 +94,11 @@ public class AppController {
 		//model.addAttribute("employees", employees);
 		return "principal";
 	}
+        
+        
+        
+        
+        
 
 	/*
 	 * This method will provide the medium to add a new employee.

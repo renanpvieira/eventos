@@ -54,6 +54,11 @@ teste
         <!-- Main style -->
 	<link href="<c:url value="/resources/css/cardio.css" />" rel="stylesheet">
         
+        <script type="text/javascript">
+            function url_base(url){ return '${pageContext.request.contextPath}' + '/' +  url ; }
+            
+        </script>
+        
 
 </head>
 
@@ -111,10 +116,10 @@ teste
                             <c:forEach items="${eventos}" var="evento">
                                 <div class="col-md-4">
                                     <div class="intro-table intro-table-hover ${evento.getCategoria().getAcronimo()}">
-                                        <h5 class="white heading hide-hover">${evento.getDescricao()}</h5>
+                                        <h5 class="white heading hide-hover evento-titulo">${evento.getDescricao()} <br /> <span class="evento-pessoa">${evento.getPessoa()}</span> </h5>
                                         <div class="bottom">
                                             <h4 class="white heading small-heading no-margin regular">${evento.getCategoria().getDescricao()}</h4>
-                                            <h4 class="white heading small-pt">10/10/2017 às 19:00</h4>
+                                            <h4 class="white heading small-pt evento-data">${evento.getDataInicioFormatado()}</h4>
                                             <a href="#" class="btn btn-white-fill expand">Fazer Reserva</a>
                                         </div>
                                     </div>
@@ -200,22 +205,20 @@ teste
 					<a href="#" class="btn btn-blue ripple trial-button">Start Free Trial</a>
 				</div>
 				<div class="col-sm-6 text-center-mobile">
-					<h3 class="white">Opening Hours <span class="open-blink"></span></h3>
+					<h3 class="white">Próximos Eventos <span class="open-blink"></span></h3>
 					<div class="row opening-hours">
-						<div class="col-sm-6 text-center-mobile">
-							<h5 class="light-white light">Mon - Fri</h5>
-							<h3 class="regular white">9:00 - 22:00</h3>
+                                            <c:forEach items="${proximoeventos}" var="evento">
+                                                <div class="col-sm-6 text-center-mobile">
+							<h5 class="light-white light">${evento.getDescricao()}</h5>
+							<h3 class="regular white pvento-data-menor">${evento.getDataInicioFormatado()}</h3>
 						</div>
-						<div class="col-sm-6 text-center-mobile">
-							<h5 class="light-white light">Sat - Sun</h5>
-							<h3 class="regular white">10:00 - 18:00</h3>
-						</div>
-					</div>
+                                            </c:forEach>
+                                        </div>
 				</div>
 			</div>
 			<div class="row bottom-footer text-center-mobile">
 				<div class="col-sm-8">
-					<p>&copy; 2015 All Rights Reserved. Powered by <a href="http://www.phir.co/">PHIr</a> exclusively for <a href="http://tympanus.net/codrops/">Codrops</a></p>
+					<p>&copy; 2017 Todos os direitos reservados. Desenvolvido por <a href="http://www.phir.co/"> Grupo Stark </a> exclusivo para <a href="http://tympanus.net/codrops/">UFF</a></p>
 				</div>
 				<div class="col-sm-4 text-right text-center-mobile">
 					<ul class="social-footer">
@@ -241,9 +244,13 @@ teste
         <script src="<c:url value="/resources/js/typewriter.js" />"></script>
         <script src="<c:url value="/resources/js/jquery.onepagenav.js" />"></script>
         <script src="<c:url value="/resources/js/main.js" />"></script>
-         
+        <script src="<c:url value="/resources/js/discorp.js" />"></script>
+        
+        
         
 	
 </body>
 
 </html>
+
+

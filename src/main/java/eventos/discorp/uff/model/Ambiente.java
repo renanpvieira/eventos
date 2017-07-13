@@ -19,39 +19,43 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author pc_renan
+ * @author Renan.Vieira
  */
 @Entity
-@Table(name="EventoCategoria")
-public class EventoCategoria {
+@Table(name="Ambiente")
+public class Ambiente {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int EventoCategoriaId;
-    
-    @Size(min=3, max=50)
+    private int AmbienteId;
+
+    @Size(min=3, max=255)
     @Column(name = "Descricao", nullable = false)
     private String Descricao;
     
-    @Size(max=10)
-    @Column(name = "Acronimo", nullable = true)
-    private String Acronimo;
+    @Size(min=3, max=500)
+    @Column(name = "Endereco", nullable = false)
+    private String Endereco;
     
-    @OneToMany(mappedBy = "Categoria", targetEntity = Evento.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+     
+    @Column(name = "OcupacaoMaxima", nullable = false)
+    private int OcupacaoMaxima;
+    
+    @OneToMany(mappedBy = "Ambiente", targetEntity = Evento.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Evento> Eventos;
 
     /**
-     * @return the EventoCategoriaId
+     * @return the AmbienteId
      */
-    public int getEventoCategoriaId() {
-        return EventoCategoriaId;
+    public int getAmbienteId() {
+        return AmbienteId;
     }
 
     /**
-     * @param EventoCategoriaId the EventoCategoriaId to set
+     * @param AmbienteId the AmbienteId to set
      */
-    public void setEventoCategoriaId(int EventoCategoriaId) {
-        this.EventoCategoriaId = EventoCategoriaId;
+    public void setAmbienteId(int AmbienteId) {
+        this.AmbienteId = AmbienteId;
     }
 
     /**
@@ -69,20 +73,34 @@ public class EventoCategoria {
     }
 
     /**
-     * @return the Acronimo
+     * @return the Endereco
      */
-    public String getAcronimo() {
-        return Acronimo;
+    public String getEndereco() {
+        return Endereco;
     }
 
     /**
-     * @param Acronimo the Acronimo to set
+     * @param Endereco the Endereco to set
      */
-    public void setAcronimo(String Acronimo) {
-        this.Acronimo = Acronimo;
+    public void setEndereco(String Endereco) {
+        this.Endereco = Endereco;
+    }
+
+    /**
+     * @return the OcupacaoMaxima
+     */
+    public int getOcupacaoMaxima() {
+        return OcupacaoMaxima;
+    }
+
+    /**
+     * @param OcupacaoMaxima the OcupacaoMaxima to set
+     */
+    public void setOcupacaoMaxima(int OcupacaoMaxima) {
+        this.OcupacaoMaxima = OcupacaoMaxima;
     }
     
-    /**
+     /**
      * @return the Eventos
      */
     public List<Evento> getEventos() {
@@ -96,16 +114,16 @@ public class EventoCategoria {
         this.Eventos = Eventos;
     }
     
-     @Override
+    @Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof EventoCategoria))
+		if (!(obj instanceof Ambiente))
 			return false;
-		EventoCategoria other = (EventoCategoria)obj;
-		if (EventoCategoriaId != other.EventoCategoriaId)
+		Ambiente other = (Ambiente)obj;
+		if (AmbienteId != other.AmbienteId)
 			return false;
 		
 		return true;
@@ -113,9 +131,9 @@ public class EventoCategoria {
 
 	@Override
 	public String toString() {
-   	      return String.format("Evento [EventoId=%s, Descricao=%s]", this.EventoCategoriaId, this.Descricao);
+   	      return String.format("Ambiente [AmbienteId=%s, Descricao=%s]", this.AmbienteId, this.Descricao);
 	}
 
-    
+   
     
 }

@@ -6,7 +6,7 @@
 package eventos.discorp.uff.service;
 
 import eventos.discorp.uff.dao.IDao;
-import eventos.discorp.uff.model.Evento;
+import eventos.discorp.uff.model.Ambiente;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,21 +14,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author pc_renan
+ * @author Renan.Vieira
  */
-
-@Service("eventoService")
+@Service("ambienteService")
 @Transactional
-public class EventoService implements IService<Evento> {
-
-     @Autowired
-    private IDao<Evento> dao;
+public class AmbienteService implements IService<Ambiente> {
     
-    public void salvar(Evento classe) {
+    @Autowired
+    private IDao<Ambiente> dao;
+
+    public void salvar(Ambiente classe) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void atualizar(Evento classe) {
+    public void atualizar(Ambiente classe) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -36,12 +35,12 @@ public class EventoService implements IService<Evento> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public List<Evento> buscarTodos() {
+    public List<Ambiente> buscarTodos() {
         return dao.buscarTodos();
     }
 
-    public Evento buscarById(int id) {
-        return dao.buscarById(id);
+    public Ambiente buscarById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -7,6 +7,8 @@ jQuery(function($) {
 
 	// Window Load
 	$(window).load(function() {
+            
+            
 		// Preloader
 		$('.intro-tables, .parallax, header').css('opacity', '0');
 		$('.preloader').addClass('animated fadeOut').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
@@ -170,4 +172,7 @@ jQuery(function($) {
 	$(window).on("resize", function() {
 		$('.modal:visible').each(centerModal);
 	});
+        
+        
+       
 });

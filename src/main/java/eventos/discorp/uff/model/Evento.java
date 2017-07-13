@@ -5,6 +5,7 @@
  */
 package eventos.discorp.uff.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -56,6 +57,10 @@ public class Evento {
     @ManyToOne
     @JoinColumn(name="EventoCategoriaId")
     private EventoCategoria Categoria;
+    
+    @ManyToOne
+    @JoinColumn(name="AmbienteId")
+    private Ambiente Ambiente;
     
     
 
@@ -123,6 +128,13 @@ public class Evento {
     public Date getHoraInicio() {
         return HoraInicio;
     }
+    
+    
+    public String getDataInicioFormatado() {
+        return (new SimpleDateFormat("dd/MM/yyyy")).format(DataInicio) + " às " + (new SimpleDateFormat("HH:mm")).format(HoraInicio) ;
+    }
+    
+    
 
     /**
      * @param HoraInicio the HoraInicio to set
@@ -174,6 +186,20 @@ public class Evento {
         this.Categoria = Categoria;
     }
     
+     /**
+     * @return the Ambiente
+     */
+    public Ambiente getAmbiente() {
+        return Ambiente;
+    }
+
+    /**
+     * @param Ambiente the Ambiente to set
+     */
+    public void setAmbiente(Ambiente Ambiente) {
+        this.Ambiente = Ambiente;
+    }
+    
     @Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -193,6 +219,8 @@ public class Evento {
 	public String toString() {
    	      return String.format("Evento [EventoId=%s, Descricao=%s]", this.EventoId, this.Descricao);
 	}
+
+   
 
     
     

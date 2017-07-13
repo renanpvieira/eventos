@@ -6,9 +6,9 @@
 package eventos.discorp.uff.dao;
 
 import eventos.discorp.uff.model.Evento;
-import eventos.discorp.uff.model.Recurso;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -18,12 +18,13 @@ import org.springframework.stereotype.Repository;
 @Repository("eventoDao")
 public class EventoDao extends AbstractDao<Integer, Evento> implements IDao<Evento> {
 
-    public Recurso buscarById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Evento buscarById(int id) {
+        return getByKey(id);
     }
 
     public List<Evento> buscarTodos() {
-       Criteria criteria = createEntityCriteria();
+        Criteria criteria = createEntityCriteria();
+        criteria.addOrder(Order.asc("DataInicio"));
 	return (List<Evento>) criteria.list();
     }
 

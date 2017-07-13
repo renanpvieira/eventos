@@ -5,9 +5,7 @@
  */
 package eventos.discorp.uff.dao;
 
-
-
-import eventos.discorp.uff.model.EventoCategoria;
+import eventos.discorp.uff.model.Aluno;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
@@ -16,19 +14,19 @@ import org.springframework.stereotype.Repository;
  *
  * @author pc_renan
  */
-@Repository("eventocategoriaDao")
-public class EventoCategoriaDao extends AbstractDao<Integer, EventoCategoria> implements IDao<EventoCategoria> {
+@Repository("alunoDao")
+public class AlunoDao extends AbstractDao<Integer, Aluno> implements IDao<Aluno> {
 
-    public EventoCategoria buscarById(int id) {
+    public Aluno buscarById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public List<EventoCategoria> buscarTodos() {
-      Criteria criteria = createEntityCriteria();
-	return (List<EventoCategoria>) criteria.list();
+    public List<Aluno> buscarTodos() {
+       Criteria criteria = createEntityCriteria();
+        return (List<Aluno>) criteria.list();
     }
 
-    public void salvar(EventoCategoria classe) {
+    public void salvar(Aluno classe) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

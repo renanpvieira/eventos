@@ -1111,14 +1111,40 @@ footer .social-footer li:hover a {
 }
 
 
-.smin { background-image: url('../img/smin.jpg') !important; }
-.smin:hover { background-image: url('../img/smin-hover.jpg') !important; }
+
 
 .plet { background-image: url('../img/plet.jpg') !important; }
 .plet:hover { background-image: url('../img/plet-hover.jpg') !important; }
 
 .wors { background-image: url('../img/wors.jpg') !important; }
 .wors:hover { background-image: url('../img/wors-hover.jpg') !important; }
+
+.crso { background-image: url('../img/crso.jpg') !important; }
+.crso:hover { background-image: url('../img/crso-hover.jpg') !important; }
+
+.smin { background-image: url('../img/smin.jpg') !important; }
+.smin:hover { background-image: url('../img/smin-hover.jpg') !important; }
+
+.simp { background-image: url('../img/simp.jpg') !important; }
+.simp:hover { background-image: url('../img/simp-hover.jpg') !important; }
+
+.lamc { background-image: url('../img/lamc.jpg') !important; }
+.lamc:hover { background-image: url('../img/lamc-hover.jpg') !important; }
+
+.fera { background-image: url('../img/fera.jpg') !important; }
+.fera:hover { background-image: url('../img/fera-hover.jpg') !important; }
+
+.cong { background-image: url('../img/cong.jpg') !important; }
+.cong:hover { background-image: url('../img/cong-hover.jpg') !important; }
+
+
+.pvento-data-menor { font-size: 26px !important; }
+
+
+
+.evento-data {font-size: 16px !important; }
+.evento-titulo {font-size: 23px !important; }
+.evento-pessoa {font-size: 18px !important; font-style:italic; }
 
 
 

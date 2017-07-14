@@ -40,6 +40,81 @@ public class Usuario {
     @Size(min=6, max=12)
     @Column(name = "Senha", nullable = false)
     private String Senha;
+
+    /**
+     * @return the UsuarioId
+     */
+    public int getUsuarioId() {
+        return UsuarioId;
+    }
+
+    /**
+     * @param UsuarioId the UsuarioId to set
+     */
+    public void setUsuarioId(int UsuarioId) {
+        this.UsuarioId = UsuarioId;
+    }
+
+    /**
+     * @return the Nome
+     */
+    public String getNome() {
+        return Nome;
+    }
+
+    /**
+     * @param Nome the Nome to set
+     */
+    public void setNome(String Nome) {
+        this.Nome = Nome;
+    }
+
+    /**
+     * @return the Login
+     */
+    public String getLogin() {
+        return Login;
+    }
+
+    /**
+     * @param Login the Login to set
+     */
+    public void setLogin(String Login) {
+        this.Login = Login;
+    }
+
+    /**
+     * @return the Senha
+     */
+    public String getSenha() {
+        return Senha;
+    }
+
+    /**
+     * @param Senha the Senha to set
+     */
+    public void setSenha(String Senha) {
+        this.Senha = Senha;
+    }
     
+    @Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Aluno))
+			return false;
+		Usuario other = (Usuario)obj;
+		if (UsuarioId != other.UsuarioId)
+			return false;
+		
+		return true;
+	}
+
+	@Override
+	public String toString() {
+   	      return String.format("Recurso [RecursoId=%s, Descricao=%s]", this.UsuarioId, this.Nome);
+	}
     
 }

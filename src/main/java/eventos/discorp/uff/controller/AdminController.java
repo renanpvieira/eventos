@@ -5,6 +5,7 @@
  */
 package eventos.discorp.uff.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,13 +18,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminController extends SegurancaController {
     
     
     @RequestMapping(value = { "/painel" }, method = RequestMethod.GET)
-    public String index(ModelMap model) {
+    public String index(ModelMap model, HttpServletRequest request) {
+        
+        /* Seguranca */
+        //if(!this.logado(request)){ return "redirect:/"; }
         
         return "admin/principal";
+        
     }
     
     

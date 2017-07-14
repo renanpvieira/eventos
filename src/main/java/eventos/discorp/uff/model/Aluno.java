@@ -20,6 +20,20 @@ import javax.validation.constraints.Size;
 @Table(name="Aluno")
 @PrimaryKeyJoinColumn(name="UsuarioId")
 public class Aluno extends Usuario {
+
+    /**
+     * @return the Matricula
+     */
+    public String getMatricula() {
+        return Matricula;
+    }
+
+    /**
+     * @param Matricula the Matricula to set
+     */
+    public void setMatricula(String Matricula) {
+        this.Matricula = Matricula;
+    }
     
     @Size(min=5, max=255)
     @Column(name = "Matricula", nullable = true)

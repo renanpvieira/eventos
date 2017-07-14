@@ -24,7 +24,7 @@ public class AlunoService implements IService<Aluno> {
     private IDao<Aluno> dao;
 
     public void salvar(Aluno classe) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       dao.salvar(classe);
     }
 
     public void atualizar(Aluno classe) {

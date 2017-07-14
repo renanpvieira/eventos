@@ -24,6 +24,20 @@ public class Administrador extends Usuario {
     @Size(min=11, max=11)
     @Column(name = "CPF", nullable = true)
     private String CPF;
+
+    /**
+     * @return the CPF
+     */
+    public String getCPF() {
+        return CPF;
+    }
+
+    /**
+     * @param CPF the CPF to set
+     */
+    public void setCPF(String CPF) {
+        this.CPF = CPF;
+    }
     
     
 }

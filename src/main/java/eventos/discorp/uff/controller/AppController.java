@@ -17,14 +17,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import eventos.discorp.uff.model.Employee;
 import eventos.discorp.uff.model.Evento;
+import eventos.discorp.uff.model.Aluno;
+import eventos.discorp.uff.model.Usuario;
 import eventos.discorp.uff.service.EmployeeService;
+import eventos.discorp.uff.service.ILoginService;
 import eventos.discorp.uff.service.IService;
+import eventos.discorp.uff.service.UsuarioService;
 import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/")
-public class AppController {
+public class AppController extends SegurancaController {
 
 	@Autowired
 	EmployeeService service;
@@ -33,6 +39,11 @@ public class AppController {
         @Autowired
 	IService<Evento> eventoService;
         
+        @Autowired
+	IService<Aluno> alunoService;
+        
+        @Autowired
+	ILoginService<Usuario> usuarioLoginService;
 	
 	@Autowired
 	MessageSource messageSource;
@@ -42,12 +53,84 @@ public class AppController {
 	 */
         
         
-        @RequestMapping(value = "/ajaxtest", method = RequestMethod.GET)
-        public @ResponseBody
-        String getTime() {
+        /*
+        
+          MÉTODOS AJAX 
+           
+        */
+        
+        @RequestMapping(value = "/logar", method = RequestMethod.POST)
+        public @ResponseBody String logar(@RequestParam("nome") String nome, @RequestParam("idade") int idade) {
             
-            return "ss";
+            
+            
+            return Integer.toString(idade);
         }
+        
+        @RequestMapping(value = "/cadastar", method = RequestMethod.POST)
+        public @ResponseBody String cadastar(@RequestParam("nome") String nome, @RequestParam("idade") int idade) {
+            
+            return Integer.toString(idade);
+        }
+        
+        
+       
+        @RequestMapping(value = { "/teste" }, method = RequestMethod.GET)
+	public @ResponseBody String teste(HttpServletRequest request) {   
+            
+            try {
+                
+                
+                
+                Usuario usu = usuarioLoginService.buscarByLogin("renanvieira@id.uff.br");
+                
+                return usu.getNome();
+                
+                
+                
+                
+                /*
+                Usuario usu2;
+                
+                Usuario usu = new Usuario();
+                usu.setNome("Renan");
+                usu.setUsuarioId(1);
+            
+                
+                String a = Boolean.toString(this.logado(request));
+                
+                this.iniciarSessao(request, usu);
+                
+                String b = Boolean.toString(this.logado(request));
+                
+                usu2 = this.usuarioLogado(request);
+                */
+                /*
+            
+                Aluno aluno = new Aluno();
+                aluno.setNome("Renan Paulino");
+                aluno.setLogin("renanvieira@id.uff.br");
+                aluno.setSenha("123456");
+                aluno.setMatricula("123456789");
+
+                alunoService.salvar(aluno);
+                */
+          
+            //return "Logado 1:" +  a + " Loagado 2:" + b + " Usuario:";
+            
+               
+                
+            } catch (Exception e) {
+                
+                return  e.getMessage();
+            }
+            
+        }
+        
+        
+        
+        
+        
                 
         @RequestMapping(value = { "/admin" }, method = RequestMethod.GET)
 	public String admin(ModelMap model) {   return "redirect:/admin/painel"; }
@@ -59,16 +142,18 @@ public class AppController {
         
         
         @RequestMapping(value = { "/" }, method = RequestMethod.GET)
-	public String index(ModelMap model) {
-
-		//List<Employee> employees = service.findAllEmployees();
+	public String index(ModelMap model, HttpServletRequest request) {
+               
+            /*
+                 Usuario usu = new Usuario();
+                 usu.setNome("Renan");
+                 usu.setUsuarioId(1);
                 
-                //List<Recurso> recursos = recursoService.buscarTodos();
-                
+                 this.iniciarSessao(request, usu);
+            */
                
                 
                 List<Evento> eventos = eventoService.buscarTodos();
-                
                 List<Evento> eventos_proximo = new ArrayList<Evento>();
                 eventos_proximo.add(eventos.get(0));
                 eventos_proximo.add(eventos.get(1));
@@ -77,10 +162,17 @@ public class AppController {
                 //model.addAttribute("employees", employees);
                 model.addAttribute("eventos", eventos);
                 model.addAttribute("proximoeventos", eventos_proximo);
+                model.addAttribute("logado", this.logado(request));
 
                 
 		return "principal";
 	}
+        
+        @RequestMapping(value = { "/sair" }, method = RequestMethod.GET)
+	public String sair(ModelMap model, HttpServletRequest request) {   
+            this.fecharSessao(request);
+            return "redirect:/"; 
+        }
         
         
         
@@ -188,5 +280,22 @@ public class AppController {
 		service.deleteEmployeeBySsn(ssn);
 		return "redirect:/list";
 	}
+        
+        
+        /*
+                
+                this.fecharSessao(request);
+                
+                Usuario usu = new Usuario();
+                usu.setNome("Renan");
+                usu.setUsuarioId(1);
+                
+                this.iniciarSessao(request, usu);
+                
+                  this.fecharSessao(request);
+                
+                //return "Logado " + Boolean.toString(this.logado(request)) + " - " + this.usuarioLogado(request).getNome();
+                return "Logado " + Boolean.toString(this.logado(request)) ;
+                */
 
 }

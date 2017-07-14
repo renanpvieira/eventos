@@ -20,6 +20,20 @@ import javax.validation.constraints.Size;
 @Table(name="Professor")
 @PrimaryKeyJoinColumn(name="UsuarioId")
 public class Professor extends Usuario {
+
+    /**
+     * @return the EmailContato
+     */
+    public String getEmailContato() {
+        return EmailContato;
+    }
+
+    /**
+     * @param EmailContato the EmailContato to set
+     */
+    public void setEmailContato(String EmailContato) {
+        this.EmailContato = EmailContato;
+    }
     
     @Size(min=12, max=255)
     @Column(name = "EmailContato", nullable = true)

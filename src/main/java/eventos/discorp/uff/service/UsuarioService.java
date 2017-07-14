@@ -6,6 +6,8 @@
 package eventos.discorp.uff.service;
 
 import eventos.discorp.uff.dao.IDao;
+import eventos.discorp.uff.dao.ILoginDao;
+import eventos.discorp.uff.dao.UsuarioDao;
 import eventos.discorp.uff.model.Usuario;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("usuarioService")
 @Transactional
-public class UsuarioService implements IService<Usuario> {
+public class UsuarioService implements IService<Usuario>, ILoginService<Usuario> {
     
     @Autowired
     private IDao<Usuario> dao;
+    
+    @Autowired
+    private ILoginDao<Usuario> daoLogin;
 
     public void salvar(Usuario classe) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -41,7 +46,11 @@ public class UsuarioService implements IService<Usuario> {
     }
 
     public Usuario buscarById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dao.buscarById(id);
+    }
+
+    public Usuario buscarByLogin(String login) {
+        return daoLogin.buscarByLogin(login);
     }
     
 }

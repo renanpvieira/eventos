@@ -86,8 +86,19 @@ teste
 					<li><a href="#intro">Eventos</a></li>
 					<li><a href="#services">Faça seu evento na UFF</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#modalContato">Contato</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#modalCadastro">Cadastro</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#modalLogin" class="btn btn-blue">Login</a></li>
+					                                        
+                                        <c:choose>
+						<c:when test="${logado}">
+                                                    <li><a href="#" data-toggle="modal" data-target="#modalCadastro">Reservas</a></li>
+                                                    <li><a href="#" data-toggle="modal" data-target="#modalLogin" class="btn btn-blue">Gerenciador</a></li>    
+                                                    <li><a href="${pageContext.request.contextPath}/sair" >Sair</a></li>
+						</c:when>
+                                                <c:otherwise>
+                                                    <li><a href="#" data-toggle="modal" data-target="#modalCadastro">Cadastro</a></li>
+                                                    <li><a href="#" data-toggle="modal" data-target="#modalLogin" class="btn btn-blue">Login</a></li>
+						</c:otherwise>
+					</c:choose>
+                                        
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
@@ -151,17 +162,18 @@ teste
 				<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
 				<h3 class="white">Cadastro</h3>
 				<form action="" class="popup-form">
-					<input type="text" class="form-control form-white" placeholder="Nome">
-					<input type="text" class="form-control form-white" placeholder="E-mail">
-					<input type="password" class="form-control form-white" placeholder="Senha">
+                                        <input type="hidden" name="perfil" value="1">
+					<input type="text" name="nome" class="form-control form-white" placeholder="Nome">
+					<input type="text" name="email" class="form-control form-white" placeholder="E-mail">
+					<input type="password" name="senha" class="form-control form-white" placeholder="Senha">
 					<div class="dropdown">
 						<button id="dLabel" class="form-control form-white dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Selecione seu perfil
 						</button>
 						<ul class="dropdown-menu animated fadeIn" role="menu" aria-labelledby="dLabel">
-							<li class="animated lightSpeedIn"><a href="#">Aluno de Graduação</a></li>
-							<li class="animated lightSpeedIn"><a href="#">Aluno de Pós-Graduação</a></li>
-							<li class="animated lightSpeedIn"><a href="#">Professor</a></li>
+                                                        <li class="animated lightSpeedIn"><a href="#" data-perfil="1" class="select-perfil-cadastro">Aluno de Graduação</a></li>
+							<li class="animated lightSpeedIn"><a href="#" data-perfil="2" class="select-perfil-cadastro">Aluno de Pós-Graduação</a></li>
+							<li class="animated lightSpeedIn"><a href="#" data-perfil="3" class="select-perfil-cadastro">Professor</a></li>
 						</ul>
 					</div>
 
@@ -171,7 +183,7 @@ teste
 							<label for="squaredOne"><span>Eu concorno com todos os termos.</span></label>
 						</div>
 					</div>
-					<button type="submit" class="btn btn-submit">Salvar</button>
+                                        <a href="#" class="btn btn-submit btn-cadastrar">Salvar</a>
 				</form>
 			</div>
 		</div>

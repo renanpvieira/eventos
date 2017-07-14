@@ -27,7 +27,7 @@ public class AlunoDao extends AbstractDao<Integer, Aluno> implements IDao<Aluno>
     }
 
     public void salvar(Aluno classe) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       persist(classe);
     }
 
     public void deletarById(int id) {

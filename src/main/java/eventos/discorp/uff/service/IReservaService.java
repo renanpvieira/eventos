@@ -17,6 +17,7 @@ import java.util.List;
 public interface IReservaService<T> {
     T buscarByEventoUsuario(Evento evento, Usuario usuario);
     List<T> buscarByUsuario(Usuario usuario);
+    List<T> buscarByUsuarioTodos(Usuario usuario);
     List<T> buscarByEvento(Evento evento);
     List<T> buscarByEventoNaoCancelada(List<Reserva> lst);
     List<T> buscarByEventoNaoCancelada(Evento evento);

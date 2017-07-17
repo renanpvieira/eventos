@@ -60,5 +60,11 @@ public class ReservaDao extends AbstractDao<Integer, Reserva> implements IDao<Re
         criteria.addOrder(Order.asc("ReservaId"));
         return (List<Reserva>) criteria.list();
     }
+
+    public List<Reserva> buscarByUsuarioTodos(Usuario usuario) {
+      Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("Usuario", usuario));
+        return (List<Reserva>) criteria.list();
+    }
     
 }

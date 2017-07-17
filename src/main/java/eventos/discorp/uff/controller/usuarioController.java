@@ -7,8 +7,15 @@ package eventos.discorp.uff.controller;
 
 import eventos.discorp.uff.model.Administrador;
 import eventos.discorp.uff.model.Aluno;
+
+
+
 import eventos.discorp.uff.model.Professor;
+import eventos.discorp.uff.model.Reserva;
+
 import eventos.discorp.uff.model.Usuario;
+import eventos.discorp.uff.service.IReservaService;
+
 import eventos.discorp.uff.service.IService;
 import eventos.discorp.uff.service.IUsuarioService;
 import java.util.List;
@@ -16,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +47,14 @@ public class usuarioController extends SegurancaController  {
     IService<Aluno> alunoService;
     
     @Autowired
-    IUsuarioService<Usuario> usuarioService;
+    IUsuarioService<Usuario> usuarioServiceEsp;
+       
+    @Autowired
+    IService<Usuario> usuarioService;
+    
+    
+    @Autowired
+    IReservaService<Reserva> reservaServiceEsp;
     
     
     @RequestMapping(value = { "/painel" }, method = RequestMethod.GET)
@@ -65,6 +80,26 @@ public class usuarioController extends SegurancaController  {
     
     }
     
+    @RequestMapping(value = { "/visualizar/{id}" }, method = RequestMethod.GET)
+    public String visualizar(ModelMap model, HttpServletRequest request, @PathVariable("id") int UsuarioId) {
+      
+        /* Seguranca */
+        if(!this.logadoAdmin(request)){ return "redirect:/"; }
+               
+        Usuario usuario = this.usuarioLogado(request);
+        Usuario usuariovw = usuarioService.buscarById(UsuarioId);
+              
+        List<Reserva> reservas =  reservaServiceEsp.buscarByUsuarioTodos(usuariovw);
+        
+            
+        model.addAttribute("reservas", reservas);
+        model.addAttribute("usuario", usuariovw);
+        model.addAttribute("usuariologado", usuario);
+        
+        return "admin/itemUsuario";
+    }
+    
+    
     /* -------------------  */
     /*     AJAX METHODS     */
     /* -------------------  */
@@ -74,7 +109,7 @@ public class usuarioController extends SegurancaController  {
             if(this.logadoAdmin(request)){
                 Usuario usu = new Usuario();
                 usu.setUsuarioId(UsuarioId);
-                usuarioService.desativaUsuario(usu);
+                usuarioServiceEsp.desativaUsuario(usu);
               return this.sucessoMensagem("f");
             }else{
               return this.erroMensagem("n");
@@ -86,7 +121,7 @@ public class usuarioController extends SegurancaController  {
             if(this.logadoAdmin(request)){
                 Usuario usu = new Usuario();
                 usu.setUsuarioId(UsuarioId);
-                usuarioService.ativaUsuario(usu);
+                usuarioServiceEsp.ativaUsuario(usu);
               return this.sucessoMensagem("f");
             }else{
               return this.erroMensagem("n");
@@ -98,7 +133,7 @@ public class usuarioController extends SegurancaController  {
             if(this.logadoAdmin(request)){
                 Usuario usu = new Usuario();
                 usu.setUsuarioId(UsuarioId);
-                usuarioService.ativaPainel(usu);
+                usuarioServiceEsp.ativaPainel(usu);
               return this.sucessoMensagem("f");
             }else{
               return this.erroMensagem("n");
@@ -110,7 +145,7 @@ public class usuarioController extends SegurancaController  {
             if(this.logadoAdmin(request)){
                 Usuario usu = new Usuario();
                 usu.setUsuarioId(UsuarioId);
-                usuarioService.desativaPainel(usu);
+                usuarioServiceEsp.desativaPainel(usu);
               return this.sucessoMensagem("f");
             }else{
               return this.erroMensagem("n");

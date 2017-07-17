@@ -16,5 +16,6 @@ import java.util.List;
 public interface IReservaDao<T> {
     T buscarByEventoUsuario(Evento evento, Usuario usuario);
     List<T> buscarByUsuario(Usuario usuario);
+    List<T> buscarByUsuarioTodos(Usuario usuario);
     List<T> buscarByEvento(Evento evento);
 }

@@ -100,6 +100,10 @@ public class ReservaService implements IService<Reserva>, IReservaService<Reserv
         return reservasncancelado;
     }
 
+    public List<Reserva> buscarByUsuarioTodos(Usuario usuario) {
+        return reservadao.buscarByUsuarioTodos(usuario);
+    }
+
    
     
 }

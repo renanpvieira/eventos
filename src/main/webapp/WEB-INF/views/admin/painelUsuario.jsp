@@ -61,7 +61,6 @@
                                                     <td>${administrador.getLogin()}</td>
                                                     <td>${administrador.getCPF()}</td>
                                                     <td>
-                                                        <a href="#" class="btn btn-primary btn-xs">Ver Reservas</a>
                                                         <c:choose>
                                                                 <c:when test="${professor.getEstatus() == 1}">
                                                                     <a href="#" data-usuario="${administrador.getUsuarioId()}" class="btn btn-danger btn-xs btn-desativar-usuario">Desativar</a>
@@ -70,7 +69,7 @@
                                                                     <a href="#" data-usuario="${administrador.getUsuarioId()}" class="btn btn-success btn-xs btn-ativar-usuario">Ativar</a>
                                                                 </c:otherwise>
                                                         </c:choose>
-                                                        
+                                                        <a href="${pageContext.request.contextPath}/usuario/visualizar/${administrador.getUsuarioId()}" class="btn btn-primary btn-xs">Visualizar</a>
                                                     </td>
                                                   </tr>
                                               </c:forEach>
@@ -100,9 +99,6 @@
                                                     <td>${professor.getLogin()}</td>
                                                     <td>${professor.getEmailContato()}</td>
                                                     <td>
-                                                        <a href="#" class="btn btn-primary btn-xs">Ver Reservas</a>
-                                                        
-                                                        
                                                         <c:choose>
                                                                 <c:when test="${professor.getEstatus() == 1}">
                                                                     <a href="#" data-usuario="${professor.getUsuarioId()}" class="btn btn-danger btn-xs btn-desativar-usuario">Desativar</a>
@@ -120,12 +116,7 @@
                                                                     <a href="#" data-usuario="${professor.getUsuarioId()}" class="btn btn-success btn-xs btn-ativarPainel-usuario">Ativar Painel</a>
                                                                 </c:otherwise>
                                                         </c:choose>
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        
+                                                        <a href="${pageContext.request.contextPath}/usuario/visualizar/${professor.getUsuarioId()}" class="btn btn-primary btn-xs">Visualizar</a>
                                                     </td>
                                                   </tr>
                                               </c:forEach>
@@ -155,8 +146,6 @@
                                                     <td>${aluno.getLogin()}</td>
                                                     <td>${aluno.getMatricula()}</td>
                                                     <td>
-                                                        <a href="#" class="btn btn-primary btn-xs">Ver Reservas</a>
-                                                        
                                                          <c:choose>
                                                                 <c:when test="${aluno.getEstatus() == 1}">
                                                                     <a href="#" data-usuario="${aluno.getUsuarioId()}" class="btn btn-danger btn-xs btn-desativar-usuario">Desativar</a>
@@ -165,6 +154,7 @@
                                                                     <a href="#" data-usuario="${aluno.getUsuarioId()}" class="btn btn-success btn-xs btn-ativar-usuario">Ativar</a>
                                                                 </c:otherwise>
                                                         </c:choose>
+                                                        <a href="${pageContext.request.contextPath}/usuario/visualizar/${aluno.getUsuarioId()}" class="btn btn-primary btn-xs">Visualizar</a>
                                                     </td>
                                                   </tr>
                                               </c:forEach>

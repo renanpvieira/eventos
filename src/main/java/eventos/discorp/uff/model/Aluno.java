@@ -35,7 +35,7 @@ public class Aluno extends Usuario {
         this.Matricula = Matricula;
     }
     
-    @Size(min=5, max=255)
+    @Size(min=0, max=255)
     @Column(name = "Matricula", nullable = true)
     private String Matricula;
     

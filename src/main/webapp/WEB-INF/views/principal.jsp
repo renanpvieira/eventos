@@ -59,6 +59,22 @@ teste
             
         </script>
         
+        <style>
+            
+            #modalMReservas li {
+                list-style-type:none;
+                text-align: left;
+                color:white;
+            }
+            
+            #modalMReservas li p {color: white; margin-top: 20px;  }
+            .btn-cancela-evento {padding: 7px; background-color: red; color: white; }
+            
+            #modal-item-evento p {color:white;}
+            #modal-meu-alerta {color:white; font-size: 20px;}
+            
+        </style>
+        
 
 </head>
 
@@ -89,8 +105,12 @@ teste
 					                                        
                                         <c:choose>
 						<c:when test="${logado}">
-                                                    <li><a href="#" data-toggle="modal" data-target="#modalCadastro">Reservas</a></li>
-                                                    <li><a href="#" data-toggle="modal" data-target="#modalLogin" class="btn btn-blue">Gerenciador</a></li>    
+                                                    <li><a href="#" data-toggle="modal" data-target="#modalMReservas">Reservas</a></li>
+                                                    <c:choose>
+                                                        <c:when test="${usaadmin}">
+                                                            <li><a href="${pageContext.request.contextPath}/admin/painel" class="btn btn-blue">Gerenciador</a></li>    
+                                                        </c:when>
+                                                    </c:choose>
                                                     <li><a href="${pageContext.request.contextPath}/sair" >Sair</a></li>
 						</c:when>
                                                 <c:otherwise>
@@ -127,11 +147,16 @@ teste
                             <c:forEach items="${eventos}" var="evento">
                                 <div class="col-md-4">
                                     <div class="intro-table intro-table-hover ${evento.getCategoria().getAcronimo()}">
-                                        <h5 class="white heading hide-hover evento-titulo">${evento.getDescricao()} <br /> <span class="evento-pessoa">${evento.getPessoa()}</span> </h5>
+                                        <h5 class="white heading hide-hover evento-titulo">
+                                              ${evento.getDescricao()} <br /> 
+                                              <span class="evento-pessoa">${evento.getPessoa()}</span> 
+                                        </h5>
                                         <div class="bottom">
-                                            <h4 class="white heading small-heading no-margin regular">${evento.getCategoria().getDescricao()}</h4>
-                                            <h4 class="white heading small-pt evento-data">${evento.getDataInicioFormatado()}</h4>
-                                            <a href="#" class="btn btn-white-fill expand">Fazer Reserva</a>
+                                            <a href="#" data-toggle="modal" data-target="#modalEvento${evento.getEventoId()}">
+                                                <h4 class="white heading small-heading no-margin regular">${evento.getCategoria().getDescricao()}</h4>
+                                                <h4 class="white heading small-pt evento-data">${evento.getDataInicioFormatado()}</h4>
+                                            </a>
+                                            <a href="#" data-evento="${evento.getEventoId()}"  class="btn btn-white-fill expand btn-reservar">Fazer Reserva</a>
                                         </div>
                                     </div>
                                 </div>
@@ -141,21 +166,23 @@ teste
 	</section> <!-- FIM SESSAO EVENTOS  -->
 	
 	
-	
+	<!-- MODEL LOGIN   -->
 	<div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content modal-popup">
 				<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
 				<h3 class="white">Login</h3>
 				<form action="" class="popup-form">
-					<input type="text" class="form-control form-white" placeholder="E-mail">
-					<input type="password" class="form-control form-white" placeholder="Senha">
-					<button type="submit" class="btn btn-submit">Logar</button>
+					<input type="text" name="login" class="form-control form-white" placeholder="Login / E-mail">
+					<input type="password" name="senha" class="form-control form-white" placeholder="Senha">
+					<a href="#" class="btn btn-submit btn-logar">Logar</a>
 				</form>
+                                <div id="form-login-msg"></div>
 			</div>
 		</div>
 	</div>
 
+        <!-- MODEL CADASTRO -->
 	<div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content modal-popup">
@@ -165,7 +192,7 @@ teste
                                         <input type="hidden" name="perfil" value="1">
 					<input type="text" name="nome" class="form-control form-white" placeholder="Nome">
 					<input type="text" name="email" class="form-control form-white" placeholder="E-mail">
-					<input type="password" name="senha" class="form-control form-white" placeholder="Senha">
+					<input type="password" name="senhaCadastro" class="form-control form-white" placeholder="Senha">
 					<div class="dropdown">
 						<button id="dLabel" class="form-control form-white dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Selecione seu perfil
@@ -179,16 +206,18 @@ teste
 
 					<div class="checkbox-holder text-left">
 						<div class="checkbox">
-							<input type="checkbox" value="None" id="squaredOne" name="check" />
-							<label for="squaredOne"><span>Eu concorno com todos os termos.</span></label>
+							<input type="checkbox" value="concordada" id="squaredOne" name="check" />
+							<label data-checado="0" class="mcheckbox" for="squaredOne"><span>Eu concordo com todos os termos.</span></label>
 						</div>
 					</div>
                                         <a href="#" class="btn btn-submit btn-cadastrar">Salvar</a>
 				</form>
+                                <div id="form-cadastro-msg"></div>
 			</div>
 		</div>
 	</div>
-
+        
+        <!-- MODEL CONTATO   -->
         <div class="modal fade" id="modalContato" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content modal-popup">
@@ -203,6 +232,55 @@ teste
 			</div>
 		</div>
 	</div>
+        
+        <!-- MODEL RESERVAS   -->
+         <div class="modal fade" id="modalMReservas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content modal-popup">
+				<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
+				<h3 class="white">Minhas Reservas</h3>
+                                <br />
+                                <div id="lista-meus-eventos" >
+                                    <ul>
+                                    <c:forEach items="${reservas}" var="reserva">
+                                        <li data-linha-reserva="${reserva.getReservaId()}">
+                                            <p>${reserva.getEvento().getDescricao()}</p>
+                                            <a href="#" data-reserva="${reserva.getReservaId()}" class="btn-cancela-evento">Cancelar</a>
+                                        </li>    
+                                    </c:forEach>
+                                    </ul>    
+                                </div>
+                                <div id="cancela-reserva-msg"></div>
+                       </div>
+		</div>
+	</div>
+        
+        <!-- MODEL ALERT   -->
+        <div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+                    <div id="modal-meu-alerta" class="modal-content modal-popup"></div>
+		</div>
+	</div>
+        
+        <!-- MODEL DINAMICO EVENTOS   -->
+        <c:forEach items="${eventos}" var="evento">
+            <div class="modal fade" id="modalEvento${evento.getEventoId()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div id="modal-item-evento" class="modal-content modal-popup">
+				<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
+                                <br />
+                                <p>${evento.getDescricao()}</p>
+                                <p>${evento.getCategoria().getDescricao()}</p>
+                                <p>${evento.getDataInicioFormatado()}</p>
+                                <p>${evento.getPessoa()}</p>
+                                <p>${evento.getDescricaoLonga()}</p>
+                                <p>${evento.getAmbiente().getDescricao()}</p>
+                                <p>${evento.getAmbiente().getEndereco()}</p>
+                                <p>${evento.getDuracao()} minutos</p>
+			</div>
+		</div>
+            </div>
+        </c:forEach>
 
 
 
@@ -212,9 +290,9 @@ teste
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6 text-center-mobile">
-					<h3 class="white">Reserve a Free Trial Class!</h3>
-					<h5 class="light regular light-white">Shape your body and improve your health.</h5>
-					<a href="#" class="btn btn-blue ripple trial-button">Start Free Trial</a>
+					<h3 class="white">Universidade Federal Fluminense</h3>
+					<h5 class="light regular light-white">Sistema de Eventos da Universidade Federal Fluminense</h5>
+					<a href="#" class="btn btn-blue ripple trial-button">Acesse o Site</a>
 				</div>
 				<div class="col-sm-6 text-center-mobile">
 					<h3 class="white">Próximos Eventos <span class="open-blink"></span></h3>

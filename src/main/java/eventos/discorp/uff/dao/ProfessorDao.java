@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 public class ProfessorDao extends AbstractDao<Integer, Professor> implements IDao<Professor> {
 
     public Professor buscarById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return getByKey(id);
     }
 
     public List<Professor> buscarTodos() {
@@ -27,7 +27,7 @@ public class ProfessorDao extends AbstractDao<Integer, Professor> implements IDa
     }
 
     public void salvar(Professor classe) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        persist(classe);
     }
 
     public void deletarById(int id) {

@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("usuarioService")
 @Transactional
-public class UsuarioService implements IService<Usuario>, ILoginService<Usuario> {
+public class UsuarioService implements IService<Usuario>, ILoginService<Usuario>, IUsuarioService<Usuario> {
     
     @Autowired
     private IDao<Usuario> dao;
@@ -51,6 +51,40 @@ public class UsuarioService implements IService<Usuario>, ILoginService<Usuario>
 
     public Usuario buscarByLogin(String login) {
         return daoLogin.buscarByLogin(login);
+    }
+
+    
+    
+    public boolean ativaUsuario(Usuario usurio) {
+        Usuario entity = dao.buscarById(usurio.getUsuarioId());
+	if(entity!=null){
+            entity.setEstatus(1);
+	}
+        return true;
+    }
+
+    public boolean desativaUsuario(Usuario usurio) {
+        Usuario entity = dao.buscarById(usurio.getUsuarioId());
+	if(entity!=null){
+            entity.setEstatus(0);
+	}
+        return true;
+    }
+
+    public boolean ativaPainel(Usuario usurio) {
+        Usuario entity = dao.buscarById(usurio.getUsuarioId());
+	if(entity!=null){
+            entity.setUsaAdmin(1);
+	}
+        return true;
+    }
+
+    public boolean desativaPainel(Usuario usurio) {
+        Usuario entity = dao.buscarById(usurio.getUsuarioId());
+	if(entity!=null){
+            entity.setUsaAdmin(0);
+	}
+        return true;
     }
     
 }

@@ -5,14 +5,19 @@
  */
 package eventos.discorp.uff.model;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -40,6 +45,22 @@ public class Usuario {
     @Size(min=6, max=12)
     @Column(name = "Senha", nullable = false)
     private String Senha;
+    
+    @OneToMany(mappedBy = "Usuario", targetEntity = Reserva.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Reserva> Reservas;
+    
+    @OneToMany(mappedBy = "Usuario", targetEntity = Evento.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Evento> Eventos;
+        
+    @Column(name = "UsaAdmin", nullable = false)
+    private int UsaAdmin;
+    
+    @Column(name = "Estatus", nullable = false)
+    private int Estatus;
+    
+    @Transient
+    private boolean isGerente;
+    
 
     /**
      * @return the UsuarioId
@@ -97,6 +118,78 @@ public class Usuario {
         this.Senha = Senha;
     }
     
+     /**
+     * @return the Reservas
+     */
+    public List<Reserva> getReservas() {
+        return Reservas;
+    }
+
+    /**
+     * @param Reservas the Reservas to set
+     */
+    public void setReservas(List<Reserva> Reservas) {
+        this.Reservas = Reservas;
+    }
+    
+    /**
+     * @return the UsaAdmin
+     */
+    public int getUsaAdmin() {
+        return UsaAdmin;
+    }
+
+    /**
+     * @param UsaAdmin the UsaAdmin to set
+     */
+    public void setUsaAdmin(int UsaAdmin) {
+        this.UsaAdmin = UsaAdmin;
+    }
+    
+    /**
+     * @return the Eventos
+     */
+    public List<Evento> getEventos() {
+        return Eventos;
+    }
+
+    /**
+     * @param Eventos the Eventos to set
+     */
+    public void setEventos(List<Evento> Eventos) {
+        this.Eventos = Eventos;
+    }
+    
+    
+    /**
+     * @return the isGerente
+     */
+    public boolean getIsGerente() {
+        return isGerente;
+    }
+
+    /**
+     * @param isGerente the isGerente to set
+     */
+    public void setIsGerente(boolean isGerente) {
+        this.isGerente = isGerente;
+    }
+    
+    /**
+     * @return the Estatus
+     */
+    public int getEstatus() {
+        return Estatus;
+    }
+
+    /**
+     * @param Estatus the Estatus to set
+     */
+    public void setEstatus(int Estatus) {
+        this.Estatus = Estatus;
+    }
+    
+    
     @Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -116,5 +209,15 @@ public class Usuario {
 	public String toString() {
    	      return String.format("Recurso [RecursoId=%s, Descricao=%s]", this.UsuarioId, this.Nome);
 	}
+
+    
+
+    
+
+    
+
+    
+
+   
     
 }

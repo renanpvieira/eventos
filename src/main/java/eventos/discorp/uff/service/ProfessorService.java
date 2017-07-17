@@ -25,7 +25,7 @@ public class ProfessorService implements IService<Professor> {
     private IDao<Professor> dao;
 
     public void salvar(Professor classe) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       dao.salvar(classe);
     }
 
     public void atualizar(Professor classe) {
@@ -41,7 +41,7 @@ public class ProfessorService implements IService<Professor> {
     }
 
     public Professor buscarById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dao.buscarById(id);
     }
     
 }

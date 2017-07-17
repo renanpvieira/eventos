@@ -38,11 +38,20 @@ public class HibernateConfiguration {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
+        /*
+        dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/defin712_eventosuff?zeroDateTimeBehavior=convertToNull");
+        dataSource.setUsername("root");
+        dataSource.setPassword("");
+        */
+        
         dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
         dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
         dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
+        
         return dataSource;
     }
+    
+    
     
     private Properties hibernateProperties() {
         Properties properties = new Properties();

@@ -5,7 +5,7 @@
  */
 package eventos.discorp.uff.dao;
 
-import eventos.discorp.uff.model.Recurso;
+
 import java.util.List;
 
 

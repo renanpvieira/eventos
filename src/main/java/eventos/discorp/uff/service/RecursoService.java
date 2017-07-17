@@ -29,7 +29,7 @@ public class RecursoService implements IService<Recurso> {
     }
 
     public void atualizar(Recurso classe) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.salvar(classe);
     }
 
     public void deletarById(int id) {

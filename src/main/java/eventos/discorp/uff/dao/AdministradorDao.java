@@ -18,11 +18,11 @@ import org.springframework.stereotype.Repository;
 public class AdministradorDao extends AbstractDao<Integer, Administrador> implements IDao<Administrador> {
 
     public Administrador buscarById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return getByKey(id);
     }
 
     public List<Administrador> buscarTodos() {
-         Criteria criteria = createEntityCriteria();
+        Criteria criteria = createEntityCriteria();
         return (List<Administrador>) criteria.list();
     }
 

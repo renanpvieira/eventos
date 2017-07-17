@@ -7,16 +7,21 @@ package eventos.discorp.uff.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -26,6 +31,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name="Evento")
 public class Evento {
+
+    
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,6 +61,18 @@ public class Evento {
     @Column(name = "Duracao", nullable = true)
     private int Duracao;
     
+    @Column(name = "Ocupacao", nullable = true)
+    private int Ocupacao;
+    
+    @Column(name = "Estatus", nullable = true)
+    private int Estatus;
+    
+    @Transient
+    private int PercentualOcupacao;
+    
+    @Transient
+    private int QtdReservasNaoCanceladas;
+    
     @ManyToOne
     @JoinColumn(name="EventoCategoriaId")
     private EventoCategoria Categoria;
@@ -61,6 +80,13 @@ public class Evento {
     @ManyToOne
     @JoinColumn(name="AmbienteId")
     private Ambiente Ambiente;
+    
+    @ManyToOne
+    @JoinColumn(name="UsuarioId")
+    private Usuario Usuario;
+    
+    @OneToMany(mappedBy = "Evento", targetEntity = Reserva.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Reserva> Reservas;
     
     
 
@@ -200,6 +226,91 @@ public class Evento {
         this.Ambiente = Ambiente;
     }
     
+    
+    /**
+     * @return the Reservas
+     */
+    public List<Reserva> getReservas() {
+        return Reservas;
+    }
+
+    /**
+     * @param Reservas the Reservas to set
+     */
+    public void setReservas(List<Reserva> Reservas) {
+        this.Reservas = Reservas;
+    }
+    
+    /**
+     * @return the Usuario
+     */
+    public Usuario getUsuario() {
+        return Usuario;
+    }
+
+    /**
+     * @param Usuario the Usuario to set
+     */
+    public void setUsuario(Usuario Usuario) {
+        this.Usuario = Usuario;
+    }
+    
+    /**
+     * @return the Ocupacao
+     */
+    public int getOcupacao() {
+        return Ocupacao;
+    }
+
+    /**
+     * @param Ocupacao the Ocupacao to set
+     */
+    public void setOcupacao(int Ocupacao) {
+        this.Ocupacao = Ocupacao;
+    }
+    
+    /**
+     * @return the PercentualOcupacao
+     */
+    public int getPercentualOcupacao() {
+        return PercentualOcupacao;
+    }
+
+    /**
+     * @param PercentualOcupacao the PercentualOcupacao to set
+     */
+    public void setPercentualOcupacao(int PercentualOcupacao) {
+        this.PercentualOcupacao = PercentualOcupacao;
+    }
+
+    /**
+     * @return the QtdReservasNaoCanceladas
+     */
+    public int getQtdReservasNaoCanceladas() {
+        return QtdReservasNaoCanceladas;
+    }
+
+    /**
+     * @param QtdReservasNaoCanceladas the QtdReservasNaoCanceladas to set
+     */
+    public void setQtdReservasNaoCanceladas(int QtdReservasNaoCanceladas) {
+        this.QtdReservasNaoCanceladas = QtdReservasNaoCanceladas;
+    }
+    
+    /**
+     * @return the Estatus
+     */
+    public int getEstatus() {
+        return Estatus;
+    }
+
+    /**
+     * @param Estatus the Estatus to set
+     */
+    public void setEstatus(int Estatus) {
+        this.Estatus = Estatus;
+    }
+    
     @Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -219,6 +330,14 @@ public class Evento {
 	public String toString() {
    	      return String.format("Evento [EventoId=%s, Descricao=%s]", this.EventoId, this.Descricao);
 	}
+
+    
+
+    
+
+    
+
+    
 
    
 

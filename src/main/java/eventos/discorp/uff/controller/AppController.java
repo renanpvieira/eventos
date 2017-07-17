@@ -1,5 +1,7 @@
 package eventos.discorp.uff.controller;
 
+
+import eventos.discorp.uff.model.Administrador;
 import java.util.List;
 import java.util.Locale;
 
@@ -18,12 +20,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import eventos.discorp.uff.model.Employee;
 import eventos.discorp.uff.model.Evento;
 import eventos.discorp.uff.model.Aluno;
+import eventos.discorp.uff.model.Professor;
+import eventos.discorp.uff.model.Reserva;
 import eventos.discorp.uff.model.Usuario;
 import eventos.discorp.uff.service.EmployeeService;
+import eventos.discorp.uff.service.IEventoService;
 import eventos.discorp.uff.service.ILoginService;
+import eventos.discorp.uff.service.IReservaService;
 import eventos.discorp.uff.service.IService;
-import eventos.discorp.uff.service.UsuarioService;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,8 +40,7 @@ public class AppController extends SegurancaController {
 
 	@Autowired
 	EmployeeService service;
-        
-        
+                
         @Autowired
 	IService<Evento> eventoService;
         
@@ -44,14 +49,30 @@ public class AppController extends SegurancaController {
         
         @Autowired
 	ILoginService<Usuario> usuarioLoginService;
-	
+        
+        @Autowired
+	IService<Usuario> usuarioService;
+        
+        @Autowired
+	IService<Reserva> reservaService;
+        
+        @Autowired
+	IService<Professor> professorService;
+        
+        @Autowired
+	IReservaService<Reserva> reservaServiceEsp;
+        
+        @Autowired
+	IEventoService<Evento> eventoServiceEsp;
+        	
 	@Autowired
 	MessageSource messageSource;
-
-	/*
-	 * This method will list all existing employees.
-	 */
         
+        @Autowired
+        IService<Administrador> admService;
+        
+        
+
         
         /*
         
@@ -60,17 +81,130 @@ public class AppController extends SegurancaController {
         */
         
         @RequestMapping(value = "/logar", method = RequestMethod.POST)
-        public @ResponseBody String logar(@RequestParam("nome") String nome, @RequestParam("idade") int idade) {
-            
-            
-            
-            return Integer.toString(idade);
+        public @ResponseBody String logar(HttpServletRequest request, @RequestParam("login") String login, @RequestParam("senha") String senha) {
+            Usuario usuario = usuarioLoginService.buscarByLogin(login);
+            if(usuario != null){
+                if(usuario.getSenha() == null ? senha == null : usuario.getSenha().equals(senha)){
+                   if(usuario.getEstatus() == 1){
+                       Administrador adm = admService.buscarById(usuario.getUsuarioId());
+                       usuario.setIsGerente(!(adm == null));
+                       this.iniciarSessao(request, usuario);
+                       return this.sucessoMensagem("Login fetuado com sucesso!");
+                   }else{
+                      return this.erroMensagem("Seu usuário foi desativado!");
+                   } 
+                }else{
+                  return this.erroMensagem("A senha inserida está incorreta!");
+                }
+            }else{
+               return this.erroMensagem("Usuário não encontrado!");
+            }
         }
         
-        @RequestMapping(value = "/cadastar", method = RequestMethod.POST)
-        public @ResponseBody String cadastar(@RequestParam("nome") String nome, @RequestParam("idade") int idade) {
+        @RequestMapping(value = "/cancelaReservar", method = RequestMethod.POST)
+        public @ResponseBody String cancelaReservar(HttpServletRequest request, @RequestParam("reserva") int id) {
+            if(this.logado(request)){
+                Reserva reserva = reservaService.buscarById(id);
+                if(reserva != null){
+                  reservaServiceEsp.cancelaReserva(reserva);
+                  return this.sucessoMensagem("Sua reserva foi cancela!");
+                }else{
+                  return this.erroMensagem("houve um problema ao cancelar sua reserva!");
+                }
+            }else{
+              return this.erroMensagem("houve um problema ao cancelar sua reserva!");
+            }
+        }
+        
+        @RequestMapping(value = "/ativaReservar", method = RequestMethod.POST)
+        public @ResponseBody String ativaReservar(HttpServletRequest request, @RequestParam("reserva") int id) {
+            if(this.logado(request)){
+                Reserva reserva = reservaService.buscarById(id);
+                if(reserva != null){
+                  reservaServiceEsp.ativaReserva(reserva);
+                  return this.sucessoMensagem("Sua reserva foi ativada!");
+                }else{
+                  return this.erroMensagem("houve um problema ao ativar sua reserva!");
+                }
+            }else{
+              return this.erroMensagem("houve um problema ao ativar sua reserva!");
+            }
+        }
+        
+        
+        @RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
+        public @ResponseBody String cadastrar(
+                @RequestParam("nome") String nome, 
+                @RequestParam("email") String email,
+                @RequestParam("senha") String senha,
+                @RequestParam("perfil") int perfil) {
             
-            return Integer.toString(idade);
+            try {
+                
+                Usuario usuario = usuarioLoginService.buscarByLogin(email);
+                if(usuario != null){
+                   return this.erroMensagem("Esse e-mail já está cadastrado!");
+                }
+
+                if(perfil == 3){ /* Prefessor */
+                    Professor professor = new Professor();
+                    professor.setNome(nome);
+                    professor.setEmailContato(email);
+                    professor.setLogin(email);
+                    professor.setSenha(senha);
+                    professor.setEstatus(1);
+                    professor.setUsaAdmin(0);
+                    professorService.salvar(professor);
+                }else{
+                    Aluno aluno = new Aluno();
+                    aluno.setNome(nome);
+                    aluno.setMatricula("");
+                    aluno.setLogin(email);
+                    aluno.setSenha(senha);
+                    aluno.setEstatus(1);
+                    aluno.setUsaAdmin(0);
+                    alunoService.salvar(aluno);
+                }
+                return this.sucessoMensagem("Cadastro realizado com sucesso!");
+                
+            } catch (Exception e) {
+                return this.erroMensagem(e.getMessage());
+            }
+        }
+        
+        @RequestMapping(value = "/reservar", method = RequestMethod.POST)
+        public @ResponseBody String reservar(HttpServletRequest request, @RequestParam("reserva") int id) {
+            try {
+                if(this.logado(request)){
+                    
+                    Date data = new Date();
+                    Evento evento = eventoService.buscarById(id);
+                    Usuario usuario = this.usuarioLogado(request);
+                                        
+                    if(evento == null){
+                        return this.erroMensagem("Evento não encontrado!");
+                    }
+                    
+                    /* Verificando se já fez a reserva */
+                    Reserva reserva = reservaServiceEsp.buscarByEventoUsuario(evento, usuario);
+                    if(reserva == null){
+                      reserva = new Reserva();
+                      reserva.setEvento(evento);
+                      reserva.setUsuario(usuario);
+                      reserva.setEstatus(1);
+                      reserva.setDataReserva(data);
+                      reserva.setHoraReserva(data);
+                      reservaService.salvar(reserva); /* Salvando a reserva  */
+                      return this.sucessoMensagem("Pronto! sua reserva está garantida!", evento.getDescricao(), Integer.toString(reserva.getReservaId()));
+                    }else{
+                      return this.erroMensagem("Você já fez uma reserva para esse evento!");
+                    }
+                }else{
+                   return this.erroMensagem("Você precisa estar logado para fazer uma reserva!");
+                }
+            } catch (Exception e) {
+                return this.erroMensagem(e.getMessage());
+            }
         }
         
         
@@ -80,11 +214,60 @@ public class AppController extends SegurancaController {
             
             try {
                 
+              
+                
+                return "foi";
+               
+               // return Boolean.toString(this.usuarioLogado(request).getIsGerente());
+                //return  Integer.toString(this.testey(request)) ;
                 
                 
-                Usuario usu = usuarioLoginService.buscarByLogin("renanvieira@id.uff.br");
+                /*
+                Professor professor = new Professor();
+                    professor.setNome("Leonardo Cruz");
+                    professor.setEmailContato("leocruz@id.uff.br");
+                    professor.setLogin("leocruz@id.uff.br");
+                    professor.setSenha("123456");
+                    professorService.salvar(professor);
+                */
                 
-                return usu.getNome();
+               /*
+                Reserva reserva = reservaService.buscarById(1);
+                reservaServiceEsp.cancelaReserva(reserva);
+                */
+                //reservaService.atualizar(reserva);
+               
+                 
+                /*
+                Usuario usuario = this.usuarioLogado(request);
+                
+                List<Reserva> reservas = reservaServiceEsp.buscarByUsuario(usuario);
+                
+                return Integer.toString(reservas.size());
+                */
+                /*-
+                Evento evento = eventoService.buscarById(1);
+                Usuario usuario = this.usuarioLogado(request);
+                        
+                
+                
+                Reserva reserva = reservaServiceEsp.buscarByEventoUsuario(evento, usuario);
+                if(reserva == null){
+                  return "nulo";
+                }else{
+                   return "Foi";
+                }
+                */
+                
+                
+                
+                
+                //reservaService
+                
+                
+                //Usuario usu = usuarioLoginService.buscarByLogin("renanvieira@id.uff.br");
+                
+                //return usu.getNome();
                 
                 
                 
@@ -141,28 +324,29 @@ public class AppController extends SegurancaController {
          
         
         
+        
         @RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String index(ModelMap model, HttpServletRequest request) {
+            
+              
+                List<Reserva> reservas = null;
                
-            /*
-                 Usuario usu = new Usuario();
-                 usu.setNome("Renan");
-                 usu.setUsuarioId(1);
+                /* Se o usuario estiver logado lista as reservas dele */
+                if(this.logado(request)){
+                   reservas = reservaServiceEsp.buscarByUsuario(this.usuarioLogado(request));
+                }
                 
-                 this.iniciarSessao(request, usu);
-            */
-               
                 
-                List<Evento> eventos = eventoService.buscarTodos();
+                List<Evento> eventos = eventoServiceEsp.buscarAutorizados();
                 List<Evento> eventos_proximo = new ArrayList<Evento>();
                 eventos_proximo.add(eventos.get(0));
                 eventos_proximo.add(eventos.get(1));
-                              
                 
-                //model.addAttribute("employees", employees);
+                model.addAttribute("reservas", reservas);
                 model.addAttribute("eventos", eventos);
                 model.addAttribute("proximoeventos", eventos_proximo);
                 model.addAttribute("logado", this.logado(request));
+                model.addAttribute("usaadmin", this.logadoAdmin(request));
 
                 
 		return "principal";
@@ -280,22 +464,5 @@ public class AppController extends SegurancaController {
 		service.deleteEmployeeBySsn(ssn);
 		return "redirect:/list";
 	}
-        
-        
-        /*
-                
-                this.fecharSessao(request);
-                
-                Usuario usu = new Usuario();
-                usu.setNome("Renan");
-                usu.setUsuarioId(1);
-                
-                this.iniciarSessao(request, usu);
-                
-                  this.fecharSessao(request);
-                
-                //return "Logado " + Boolean.toString(this.logado(request)) + " - " + this.usuarioLogado(request).getNome();
-                return "Logado " + Boolean.toString(this.logado(request)) ;
-                */
-
+      
 }

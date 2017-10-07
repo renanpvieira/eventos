@@ -11,29 +11,29 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Copiando estrutura para tabela defin712_eventosuff.administrador
-DROP TABLE IF EXISTS `administrador`;
-CREATE TABLE IF NOT EXISTS `administrador` (
+-- Copiando estrutura para tabela defin712_eventosuff.Administrador
+DROP TABLE IF EXISTS `Administrador`;
+CREATE TABLE IF NOT EXISTS `Administrador` (
   `UsuarioId` int(4) NOT NULL,
   `CPF` varchar(11) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela defin712_eventosuff.administrador: ~1 rows (aproximadamente)
-/*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
-INSERT INTO `administrador` (`UsuarioId`, `CPF`) VALUES
+-- Copiando dados para a tabela defin712_eventosuff.Administrador: ~1 rows (aproximadamente)
+/*!40000 ALTER TABLE `Administrador` DISABLE KEYS */;
+INSERT INTO `Administrador` (`UsuarioId`, `CPF`) VALUES
 	(1, '11698346718');
-/*!40000 ALTER TABLE `administrador` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Administrador` ENABLE KEYS */;
 
--- Copiando estrutura para tabela defin712_eventosuff.aluno
-DROP TABLE IF EXISTS `aluno`;
-CREATE TABLE IF NOT EXISTS `aluno` (
+-- Copiando estrutura para tabela defin712_eventosuff.Aluno
+DROP TABLE IF EXISTS `Aluno`;
+CREATE TABLE IF NOT EXISTS `Aluno` (
   `UsuarioId` int(4) NOT NULL,
   `Matricula` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela defin712_eventosuff.aluno: ~8 rows (aproximadamente)
-/*!40000 ALTER TABLE `aluno` DISABLE KEYS */;
-INSERT INTO `aluno` (`UsuarioId`, `Matricula`) VALUES
+-- Copiando dados para a tabela defin712_eventosuff.Aluno: ~8 rows (aproximadamente)
+/*!40000 ALTER TABLE `Aluno` DISABLE KEYS */;
+INSERT INTO `Aluno` (`UsuarioId`, `Matricula`) VALUES
 	(4, '123456789'),
 	(7, ''),
 	(8, ''),
@@ -42,11 +42,11 @@ INSERT INTO `aluno` (`UsuarioId`, `Matricula`) VALUES
 	(11, ''),
 	(12, ''),
 	(13, '');
-/*!40000 ALTER TABLE `aluno` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Aluno` ENABLE KEYS */;
 
--- Copiando estrutura para tabela defin712_eventosuff.ambiente
-DROP TABLE IF EXISTS `ambiente`;
-CREATE TABLE IF NOT EXISTS `ambiente` (
+-- Copiando estrutura para tabela defin712_eventosuff.Ambiente
+DROP TABLE IF EXISTS `Ambiente`;
+CREATE TABLE IF NOT EXISTS `Ambiente` (
   `AmbienteId` int(4) NOT NULL AUTO_INCREMENT,
   `Descricao` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `Endereco` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -54,9 +54,9 @@ CREATE TABLE IF NOT EXISTS `ambiente` (
   PRIMARY KEY (`AmbienteId`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela defin712_eventosuff.ambiente: 11 rows
-/*!40000 ALTER TABLE `ambiente` DISABLE KEYS */;
-INSERT INTO `ambiente` (`AmbienteId`, `Descricao`, `Endereco`, `OcupacaoMaxima`) VALUES
+-- Copiando dados para a tabela defin712_eventosuff.Ambiente: 11 rows
+/*!40000 ALTER TABLE `Ambiente` DISABLE KEYS */;
+INSERT INTO `Ambiente` (`AmbienteId`, `Descricao`, `Endereco`, `OcupacaoMaxima`) VALUES
 	(1, 'Sala 301 - Instituto de Computacão - Campus P. Vermelha', 'Av. Gal. Milton Tavares de Souza, sn - CEP 24210-346 - Niterói - RJ', 50),
 	(2, 'Sala 302 - Instituto de Computacão - Campus P. Vermelha', 'Av. Gal. Milton Tavares de Souza, sn - CEP 24210-346 - Niterói - RJ', 50),
 	(3, 'Sala 303 - Instituto de Computacão - Campus P. Vermelha', 'Av. Gal. Milton Tavares de Souza, sn - CEP 24210-346 - Niterói - RJ', 50),
@@ -68,11 +68,11 @@ INSERT INTO `ambiente` (`AmbienteId`, `Descricao`, `Endereco`, `OcupacaoMaxima`)
 	(9, 'Sala 12 - Prédio da Administração - Valonguinho', 'Alameda Professor Barros Terra, s/n - Centro, Niterói - RJ, 24020-150', 40),
 	(10, 'Auditorio 1 - Prédio da Administração - Valonguinho', 'Alameda Professor Barros Terra, s/n - Centro, Niterói - RJ, 24020-150', 80),
 	(11, 'Auditorio 2 - Prédio da Administração - Valonguinho', 'Alameda Professor Barros Terra, s/n - Centro, Niterói - RJ, 24020-150', 90);
-/*!40000 ALTER TABLE `ambiente` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Ambiente` ENABLE KEYS */;
 
--- Copiando estrutura para tabela defin712_eventosuff.employee
-DROP TABLE IF EXISTS `employee`;
-CREATE TABLE IF NOT EXISTS `employee` (
+-- Copiando estrutura para tabela defin712_eventosuff.Employee
+DROP TABLE IF EXISTS `Employee`;
+CREATE TABLE IF NOT EXISTS `Employee` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `joining_date` date NOT NULL,
@@ -82,16 +82,16 @@ CREATE TABLE IF NOT EXISTS `employee` (
   UNIQUE KEY `ssn` (`ssn`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela defin712_eventosuff.employee: 2 rows
-/*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` (`id`, `name`, `joining_date`, `salary`, `ssn`) VALUES
+-- Copiando dados para a tabela defin712_eventosuff.Employee: 2 rows
+/*!40000 ALTER TABLE `Employee` DISABLE KEYS */;
+INSERT INTO `Employee` (`id`, `name`, `joining_date`, `salary`, `ssn`) VALUES
 	(1, 'Renan', '2017-10-10', 100, 'XX'),
 	(2, 'Wilker', '2017-09-10', 1000, 'dd');
-/*!40000 ALTER TABLE `employee` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Employee` ENABLE KEYS */;
 
--- Copiando estrutura para tabela defin712_eventosuff.evento
-DROP TABLE IF EXISTS `evento`;
-CREATE TABLE IF NOT EXISTS `evento` (
+-- Copiando estrutura para tabela defin712_eventosuff.Evento
+DROP TABLE IF EXISTS `Evento`;
+CREATE TABLE IF NOT EXISTS `Evento` (
   `EventoId` int(4) NOT NULL AUTO_INCREMENT,
   `EventoCategoriaId` int(4) DEFAULT '0',
   `AmbienteId` int(4) DEFAULT '0',
@@ -107,9 +107,9 @@ CREATE TABLE IF NOT EXISTS `evento` (
   PRIMARY KEY (`EventoId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela defin712_eventosuff.evento: ~15 rows (aproximadamente)
-/*!40000 ALTER TABLE `evento` DISABLE KEYS */;
-INSERT INTO `evento` (`EventoId`, `EventoCategoriaId`, `AmbienteId`, `UsuarioId`, `Ocupacao`, `Descricao`, `DescricaoLonga`, `Pessoa`, `DataInicio`, `HoraInicio`, `Duracao`, `Estatus`) VALUES
+-- Copiando dados para a tabela defin712_eventosuff.Evento: ~15 rows (aproximadamente)
+/*!40000 ALTER TABLE `Evento` DISABLE KEYS */;
+INSERT INTO `Evento` (`EventoId`, `EventoCategoriaId`, `AmbienteId`, `UsuarioId`, `Ocupacao`, `Descricao`, `DescricaoLonga`, `Pessoa`, `DataInicio`, `HoraInicio`, `Duracao`, `Estatus`) VALUES
 	(1, 1, 1, 2, 10, 'Saúde da Mulher na atenção básica', 'Descricao Longa', 'Luiz Fernando', '2017-07-20', '17:00:00', 60, 2),
 	(2, 2, 4, 2, 32, 'Pesquisas intelectuais e circularidade cultural', 'Descricao Longa', 'Luiz Fernando', '2017-07-18', '11:00:00', 90, 2),
 	(3, 4, 5, 3, 10, 'A Lei 10.639 e o combate a intolerância religiosa', 'Descricao Longa', 'Luiz Fernando', '2017-07-23', '13:01:00', 120, 2),
@@ -125,20 +125,20 @@ INSERT INTO `evento` (`EventoId`, `EventoCategoriaId`, `AmbienteId`, `UsuarioId`
 	(13, 1, 1, 3, 10, 'Evento 14', 'longo', 'eu', '2017-07-25', '15:00:00', 10, 2),
 	(14, 3, 2, 2, 10, 'Evento 15', 'xx', 'Eu de novo', '2017-07-26', '14:00:00', 90, 0),
 	(15, 6, 7, 5, 50, 'Evento 16', 'longa', 'Raphael', '2017-07-29', '19:00:00', 90, 1);
-/*!40000 ALTER TABLE `evento` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Evento` ENABLE KEYS */;
 
--- Copiando estrutura para tabela defin712_eventosuff.eventocategoria
-DROP TABLE IF EXISTS `eventocategoria`;
-CREATE TABLE IF NOT EXISTS `eventocategoria` (
+-- Copiando estrutura para tabela defin712_eventosuff.EventoCategoria
+DROP TABLE IF EXISTS `EventoCategoria`;
+CREATE TABLE IF NOT EXISTS `EventoCategoria` (
   `EventoCategoriaId` int(4) NOT NULL AUTO_INCREMENT,
   `Descricao` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `Acronimo` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   PRIMARY KEY (`EventoCategoriaId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela defin712_eventosuff.eventocategoria: ~8 rows (aproximadamente)
-/*!40000 ALTER TABLE `eventocategoria` DISABLE KEYS */;
-INSERT INTO `eventocategoria` (`EventoCategoriaId`, `Descricao`, `Acronimo`) VALUES
+-- Copiando dados para a tabela defin712_eventosuff.EventoCategoria: ~8 rows (aproximadamente)
+/*!40000 ALTER TABLE `EventoCategoria` DISABLE KEYS */;
+INSERT INTO `EventoCategoria` (`EventoCategoriaId`, `Descricao`, `Acronimo`) VALUES
 	(1, 'Palestra', 'plet'),
 	(2, 'WorkShop', 'wors'),
 	(3, 'Curso', 'crso'),
@@ -147,42 +147,42 @@ INSERT INTO `eventocategoria` (`EventoCategoriaId`, `Descricao`, `Acronimo`) VAL
 	(6, 'Lançamento', 'lamc'),
 	(7, 'Feira', 'fera'),
 	(8, 'Congresso', 'cong');
-/*!40000 ALTER TABLE `eventocategoria` ENABLE KEYS */;
+/*!40000 ALTER TABLE `EventoCategoria` ENABLE KEYS */;
 
--- Copiando estrutura para tabela defin712_eventosuff.professor
-DROP TABLE IF EXISTS `professor`;
-CREATE TABLE IF NOT EXISTS `professor` (
+-- Copiando estrutura para tabela defin712_eventosuff.Professor
+DROP TABLE IF EXISTS `Professor`;
+CREATE TABLE IF NOT EXISTS `Professor` (
   `UsuarioId` int(4) NOT NULL,
   `EmailContato` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela defin712_eventosuff.professor: ~5 rows (aproximadamente)
-/*!40000 ALTER TABLE `professor` DISABLE KEYS */;
-INSERT INTO `professor` (`UsuarioId`, `EmailContato`) VALUES
+-- Copiando dados para a tabela defin712_eventosuff.Professor: ~5 rows (aproximadamente)
+/*!40000 ALTER TABLE `Professor` DISABLE KEYS */;
+INSERT INTO `Professor` (`UsuarioId`, `EmailContato`) VALUES
 	(2, 'leocruz@id.uff.br'),
 	(3, 'viterbo@id.uff.br'),
 	(5, 'guerra@id.uff.br'),
 	(6, 'tcris@id.uff.br'),
 	(14, 'danipaiva@gmail.com');
-/*!40000 ALTER TABLE `professor` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Professor` ENABLE KEYS */;
 
--- Copiando estrutura para tabela defin712_eventosuff.recurso
-DROP TABLE IF EXISTS `recurso`;
-CREATE TABLE IF NOT EXISTS `recurso` (
+-- Copiando estrutura para tabela defin712_eventosuff.Recurso
+DROP TABLE IF EXISTS `Recurso`;
+CREATE TABLE IF NOT EXISTS `Recurso` (
   `RecursoId` int(4) NOT NULL AUTO_INCREMENT,
   `Descricao` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   PRIMARY KEY (`RecursoId`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela defin712_eventosuff.recurso: 1 rows
-/*!40000 ALTER TABLE `recurso` DISABLE KEYS */;
-INSERT INTO `recurso` (`RecursoId`, `Descricao`) VALUES
+-- Copiando dados para a tabela defin712_eventosuff.Recurso: 1 rows
+/*!40000 ALTER TABLE `Recurso` DISABLE KEYS */;
+INSERT INTO `Recurso` (`RecursoId`, `Descricao`) VALUES
 	(1, 'Projetor');
-/*!40000 ALTER TABLE `recurso` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Recurso` ENABLE KEYS */;
 
--- Copiando estrutura para tabela defin712_eventosuff.reserva
-DROP TABLE IF EXISTS `reserva`;
-CREATE TABLE IF NOT EXISTS `reserva` (
+-- Copiando estrutura para tabela defin712_eventosuff.Reserva
+DROP TABLE IF EXISTS `Reserva`;
+CREATE TABLE IF NOT EXISTS `Reserva` (
   `ReservaId` int(4) NOT NULL AUTO_INCREMENT,
   `UsuarioId` int(4) NOT NULL DEFAULT '0',
   `EventoId` int(4) NOT NULL DEFAULT '0',
@@ -192,9 +192,9 @@ CREATE TABLE IF NOT EXISTS `reserva` (
   PRIMARY KEY (`ReservaId`)
 ) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela defin712_eventosuff.reserva: 27 rows
-/*!40000 ALTER TABLE `reserva` DISABLE KEYS */;
-INSERT INTO `reserva` (`ReservaId`, `UsuarioId`, `EventoId`, `DataReserva`, `HoraReserva`, `Estatus`) VALUES
+-- Copiando dados para a tabela defin712_eventosuff.Reserva: 27 rows
+/*!40000 ALTER TABLE `Reserva` DISABLE KEYS */;
+INSERT INTO `Reserva` (`ReservaId`, `UsuarioId`, `EventoId`, `DataReserva`, `HoraReserva`, `Estatus`) VALUES
 	(1, 1, 1, '2017-07-15', '00:49:22', 1),
 	(2, 2, 1, '2017-07-15', '00:53:22', 1),
 	(3, 3, 1, '2017-07-15', '01:34:35', 1),
@@ -222,11 +222,11 @@ INSERT INTO `reserva` (`ReservaId`, `UsuarioId`, `EventoId`, `DataReserva`, `Hor
 	(25, 12, 4, '2017-07-16', '22:37:43', 1),
 	(26, 13, 4, '2017-07-16', '22:37:57', 1),
 	(27, 14, 4, '2017-07-16', '22:38:19', 1);
-/*!40000 ALTER TABLE `reserva` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Reserva` ENABLE KEYS */;
 
--- Copiando estrutura para tabela defin712_eventosuff.usuario
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE IF NOT EXISTS `usuario` (
+-- Copiando estrutura para tabela defin712_eventosuff.Usuario
+DROP TABLE IF EXISTS `Usuario`;
+CREATE TABLE IF NOT EXISTS `Usuario` (
   `UsuarioId` int(4) NOT NULL AUTO_INCREMENT,
   `Nome` varchar(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `Login` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -236,9 +236,9 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   PRIMARY KEY (`UsuarioId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela defin712_eventosuff.usuario: ~14 rows (aproximadamente)
-/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` (`UsuarioId`, `Nome`, `Login`, `Senha`, `UsaAdmin`, `Estatus`) VALUES
+-- Copiando dados para a tabela defin712_eventosuff.Usuario: ~14 rows (aproximadamente)
+/*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
+INSERT INTO `Usuario` (`UsuarioId`, `Nome`, `Login`, `Senha`, `UsaAdmin`, `Estatus`) VALUES
 	(1, 'Viterbo', 'gerente@id.uff.br', '123456', 1, 1),
 	(2, 'Leonardo Cruz', 'leocruz@id.uff.br', '123456', 1, 1),
 	(3, 'Daniel Oliveira', 'daniel@id.uff.br', '123456', 1, 1),
@@ -253,7 +253,7 @@ INSERT INTO `usuario` (`UsuarioId`, `Nome`, `Login`, `Senha`, `UsaAdmin`, `Estat
 	(12, 'Juliana Paes', 'jpaes@id.uff.br', '123456', 0, 1),
 	(13, 'Debora Secco', 'dsecco@id.uff.br', '123456', 0, 1),
 	(14, 'Danielen Paiva', 'danipaiva@gmail.com', '123456', 0, 1);
-/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

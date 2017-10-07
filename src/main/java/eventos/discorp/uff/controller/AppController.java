@@ -76,7 +76,7 @@ public class AppController extends SegurancaController {
         
         /*
         
-          M…TODOS AJAX 
+          MÔøΩTODOS AJAX 
            
         */
         
@@ -91,13 +91,13 @@ public class AppController extends SegurancaController {
                        this.iniciarSessao(request, usuario);
                        return this.sucessoMensagem("Login fetuado com sucesso!");
                    }else{
-                      return this.erroMensagem("Seu usu·rio foi desativado!");
+                      return this.erroMensagem("Seu usu√°rio foi desativado!");
                    } 
                 }else{
-                  return this.erroMensagem("A senha inserida est· incorreta!");
+                  return this.erroMensagem("A senha inserida est√° incorreta!");
                 }
             }else{
-               return this.erroMensagem("Usu·rio n„o encontrado!");
+               return this.erroMensagem("Usu√°rio n√£o encontrado!");
             }
         }
         
@@ -143,7 +143,7 @@ public class AppController extends SegurancaController {
                 
                 Usuario usuario = usuarioLoginService.buscarByLogin(email);
                 if(usuario != null){
-                   return this.erroMensagem("Esse e-mail j· est· cadastrado!");
+                   return this.erroMensagem("Esse e-mail j√° est√° cadastrado!");
                 }
 
                 if(perfil == 3){ /* Prefessor */
@@ -182,10 +182,10 @@ public class AppController extends SegurancaController {
                     Usuario usuario = this.usuarioLogado(request);
                                         
                     if(evento == null){
-                        return this.erroMensagem("Evento n„o encontrado!");
+                        return this.erroMensagem("Evento n√£o encontrado!");
                     }
                     
-                    /* Verificando se j· fez a reserva */
+                    /* Verificando se jÔøΩ fez a reserva */
                     Reserva reserva = reservaServiceEsp.buscarByEventoUsuario(evento, usuario);
                     if(reserva == null){
                       reserva = new Reserva();
@@ -195,12 +195,12 @@ public class AppController extends SegurancaController {
                       reserva.setDataReserva(data);
                       reserva.setHoraReserva(data);
                       reservaService.salvar(reserva); /* Salvando a reserva  */
-                      return this.sucessoMensagem("Pronto! sua reserva est· garantida!", evento.getDescricao(), Integer.toString(reserva.getReservaId()));
+                      return this.sucessoMensagem("Pronto! sua reserva est√° garantida!", evento.getDescricao(), Integer.toString(reserva.getReservaId()));
                     }else{
-                      return this.erroMensagem("VocÍ j· fez uma reserva para esse evento!");
+                      return this.erroMensagem("Voc√™ j√° fez uma reserva para esse evento!");
                     }
                 }else{
-                   return this.erroMensagem("VocÍ precisa estar logado para fazer uma reserva!");
+                   return this.erroMensagem("Voc√™ precisa estar logado para fazer uma reserva!");
                 }
             } catch (Exception e) {
                 return this.erroMensagem(e.getMessage());

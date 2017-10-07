@@ -82,7 +82,7 @@ public class EventoController extends SegurancaController {
         Usuario usuario = this.usuarioLogado(request);
         Evento evento = eventoService.buscarById(EventoId);
         
-        /* VERIFICANDO SE O USUARIO NAO GERENTE EST¿ TENTANDO ACESSAR UM EVENTO QUE N¬O » DELE  */
+        /* VERIFICANDO SE O USUARIO NAO GERENTE ESTÔøΩ TENTANDO ACESSAR UM EVENTO QUE NÔøΩO ÔøΩ DELE  */
         if(!usuario.getIsGerente()){
            if(evento.getUsuario().getUsuarioId() != usuario.getUsuarioId()){
                return "redirect:/admin";
@@ -109,7 +109,7 @@ public class EventoController extends SegurancaController {
         Usuario usuario = this.usuarioLogado(request);
         Evento evento = eventoService.buscarById(EventoId);
         
-        /* VERIFICANDO SE O USUARIO NAO GERENTE EST¿ TENTANDO ACESSAR UM EVENTO QUE N¬O » DELE  */
+        /* VERIFICANDO SE O USUARIO NAO GERENTE EST√Å TENTANDO ACESSAR UM EVENTO QUE N√ÉO √â DELE  */
         if(!usuario.getIsGerente()){
            if(evento.getUsuario().getUsuarioId() != usuario.getUsuarioId()){
                return "redirect:/admin";
@@ -131,7 +131,7 @@ public class EventoController extends SegurancaController {
     }
     
     /*
-       AJAX M…TODOS
+       AJAX TODOS
     */
     @RequestMapping(value = "/getqtdreservas", method = RequestMethod.POST)
     public @ResponseBody String getQtdReservas(HttpServletRequest request, @RequestParam("evento") int EventoId) {
